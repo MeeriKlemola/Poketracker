@@ -1,6 +1,10 @@
 import { FlatList, View, Text, StyleSheet, Image } from "react-native"
+import { getEvolutions } from "../apiGetEvolutions";
+import EvolutionList from "./EvolutionsList";
+import GameList from "./GameList";
 
 export default function PokeList({ pokemon }) {
+
     return (
         <FlatList
             data={pokemon}
@@ -12,6 +16,9 @@ export default function PokeList({ pokemon }) {
                     </Text>
                     <Text>Height: {item.height}</Text>
                     <Text>Weight: {item.weight}</Text>
+                    <Text>
+                        Type: {item.types.map(t => t.type.name).join(' / ')}
+                    </Text>
 
                     {item.sprites?.front_default ? (
                         <Image
@@ -22,6 +29,10 @@ export default function PokeList({ pokemon }) {
                     ) : (
                         <Text style={{ color: "red", fontSize: 16 }}>No Image Available</Text>
                     )}
+
+                    <Text>Where to find:</Text>
+                    <GameList gameIndices={item.game_indices}/>
+
                 </View>
             }
         />
@@ -36,7 +47,9 @@ const styles = StyleSheet.create({
 
     },
     titleText: {
-        fontSixe: 18,
-        fontWeight: 'bold'
+        fontSixe: 22,
+        fontWeight: 'bold',
+        marginBottom: 1,
+        marginTop: 10
     }
 })
