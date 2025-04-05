@@ -10,8 +10,6 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [lists, setLists] = useState({});
 
-  setLists
-
  // const lists = {
  //   Favorites: favorites,
  //   Caught: caught,
