@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import PokeList from './PokeList.js';
-import { getPokemon } from '../api.js';
+import { getPokemon } from '../apiGetPokemon.js';
 
 export default function PokeFinder() {
 
@@ -47,5 +47,6 @@ const styles = StyleSheet.create({
     },
     listStyle: {
         flex: 8,
-    }
+    },
+    
 })
