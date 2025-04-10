@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import PokeList from './PokeList.js';
+import PokeList from './PokeList.tsx';
 import { getPokemon } from '../apiGetPokemon.js';
 
 export default function PokeFinder() {
