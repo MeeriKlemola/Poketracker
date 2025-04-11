@@ -11,7 +11,7 @@ const GameList = ({ gameIndices }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.listItemContainer}>
-            <Text style={styles.listItem}>• {item}</Text>
+            <Text style={styles.listItem}>• {item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}</Text>
           </View>
         )}
         numColumns={3} //harkitse vielä, onko kolme vai kaksi parempi
@@ -19,8 +19,8 @@ const GameList = ({ gameIndices }) => {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No games found {'\u003A\u0028'}</Text> {/* Suruhymiö :( */}
-          </View>
+            <Text style={styles.emptyText}>No games found {'\u003A\u0028'}</Text> 
+          </View> //unicode suruhymiölle
         }
       />
     </View>
@@ -30,7 +30,7 @@ const GameList = ({ gameIndices }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 13,
+    paddingLeft: 5,
   },
   listItem: {
     fontSize: 15,
