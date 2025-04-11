@@ -17,6 +17,11 @@ const GameList = ({ gameIndices }) => {
         numColumns={3} //harkitse vielä, onko kolme vai kaksi parempi
         columnWrapperStyle={styles.row}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No games found {'\u003A\u0028'}</Text> {/* Suruhymiö :( */}
+          </View>
+        }
       />
     </View>
 
@@ -41,6 +46,17 @@ const styles = StyleSheet.create({
   listItemContainer: {
     width: '34%',
     paddingHorizontal: 8,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: 'gray',
+    textAlign: 'center',
   },
 });
 
