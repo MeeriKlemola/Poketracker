@@ -40,7 +40,9 @@ export default function PokeList({ pokemon }) {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <View style={styles.padding}>
                                 <Text style={styles.titleText}>
-                                    {item.forms[0].name.charAt(0).toUpperCase() + item.forms[0].name.slice(1).toLowerCase()}
+                                    {item.forms
+                                        .map((form: { name: string }) => form.name.charAt(0).toUpperCase() + form.name.slice(1).toLowerCase())
+                                        .join(', ')}
                                 </Text>
                                 <Text>
                                     Type: {item.types.map(t => t.type.name).join(' / ')}
@@ -49,17 +51,20 @@ export default function PokeList({ pokemon }) {
                                 <Text>Weight: {item.weight}</Text>
                             </View>
 
-                            <TouchableOpacity onPress={playCrySound}>
-                                {item.sprites?.front_default ? (
-                                    <Image
-                                        style={styles.image}
-                                        source={{ uri: item.sprites.front_default }}
-                                        onError={() => console.log("Image failed to load")}
-                                    />
-                                ) : (
-                                    <Text style={{ color: "red", fontSize: 16 }}>No Image Available</Text>
-                                )}
-                            </TouchableOpacity>
+                            <View style={{ width: '60%' }}>
+                                <TouchableOpacity onPress={playCrySound}>
+                                    {item.sprites?.front_default ? (
+                                        <Image
+                                            style={styles.image}
+                                            source={{ uri: item.sprites.front_default }}
+                                            onError={() => console.log("Image failed to load")}
+                                        />
+                                    ) : (
+                                        <Text style={{ color: "red", fontSize: 16 }}>No Image Available</Text>
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
 
                         <Text style={styles.padding}>Where to catch:</Text>
@@ -78,12 +83,13 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
     },
     titleText: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 2,
         marginTop: 10,
     },
     padding: {
-        paddingLeft: 15,
+        paddingLeft: 10,
+        width: '40%',
     }
 })
