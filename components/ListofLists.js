@@ -5,7 +5,7 @@ export default function ListofLists({listNames}) {
     return (
         <View>
         {listNames.map((name, index) => (
-          <Text key={index}>• {name}</Text>
+          <Text key={index}> {name}</Text>
         ))}
       </View>
     )
