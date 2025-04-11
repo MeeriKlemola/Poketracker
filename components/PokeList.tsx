@@ -27,30 +27,42 @@ export default function PokeList({ pokemon }) {
                     }
                 };
 
+                const myPokemon: Pokemon = {
+                    id: item.id,
+                    name: item.forms[0].name,
+                    sprite: item.sprites.front_default,
+                    types: item.types.map(t => t.type.name),
+                    cryUrl: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${item.id}.ogg`,
+                };
+
                 return (
                     <View>
-                        <Text style={styles.titleText}>
-                            {item.forms[0].name.charAt(0).toUpperCase() + item.forms[0].name.slice(1).toLowerCase()}
-                        </Text>
-                        <Text>Height: {item.height}</Text>
-                        <Text>Weight: {item.weight}</Text>
-                        <Text>
-                            Type: {item.types.map(t => t.type.name).join(' / ')}
-                        </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={styles.padding}>
+                                <Text style={styles.titleText}>
+                                    {item.forms[0].name.charAt(0).toUpperCase() + item.forms[0].name.slice(1).toLowerCase()}
+                                </Text>
+                                <Text>
+                                    Type: {item.types.map(t => t.type.name).join(' / ')}
+                                </Text>
+                                <Text>Height: {item.height}</Text>
+                                <Text>Weight: {item.weight}</Text>
+                            </View>
 
-                        <TouchableOpacity onPress={playCrySound}>
-                            {item.sprites?.front_default ? (
-                                <Image
-                                    source={{ uri: item.sprites.front_default }}
-                                    style={styles.image}
-                                    onError={() => console.log("Image failed to load")}
-                                />
-                            ) : (
-                                <Text style={{ color: "red", fontSize: 16 }}>No Image Available</Text>
-                            )}
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={playCrySound}>
+                                {item.sprites?.front_default ? (
+                                    <Image
+                                        style={styles.image}
+                                        source={{ uri: item.sprites.front_default }}
+                                        onError={() => console.log("Image failed to load")}
+                                    />
+                                ) : (
+                                    <Text style={{ color: "red", fontSize: 16 }}>No Image Available</Text>
+                                )}
+                            </TouchableOpacity>
+                        </View>
 
-                        <Text>Where to find:</Text>
+                        <Text style={styles.padding}>Where to catch:</Text>
                         <GameList gameIndices={item.game_indices} />
                     </View>
                 );
@@ -64,12 +76,14 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         resizeMode: "contain",
-
     },
     titleText: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 1,
-        marginTop: 10
+        marginBottom: 2,
+        marginTop: 10,
+    },
+    padding: {
+        paddingLeft: 15,
     }
 })
