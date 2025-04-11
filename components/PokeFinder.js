@@ -45,8 +45,4 @@ const styles = StyleSheet.create({
     inputForm: {
         flex: 1,
     },
-    listStyle: {
-        flex: 8,
-    },
-    
 })
