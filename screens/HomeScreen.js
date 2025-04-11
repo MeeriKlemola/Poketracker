@@ -5,7 +5,6 @@ import PokeFinder from '../components/PokeFinder';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hello darling, I'm home!</Text>
       <PokeFinder />
       <StatusBar style="auto" />
     </View>
@@ -19,5 +18,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
   },
 });
