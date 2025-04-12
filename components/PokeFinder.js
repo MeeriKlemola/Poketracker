@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import PokeList from './PokeList.tsx';
+import PokeDisplay from './PokeDisplay.tsx';
 import { getPokemon } from '../apiGetPokemon.js';
 
 export default function PokeFinder() {
@@ -22,7 +22,7 @@ export default function PokeFinder() {
         } }
 
         return (
-            <View style={styles.inputForm}>
+            <View>
                 <TextInput
                     placeholder='Enter a pokemon'
                     value={keyword}
@@ -35,14 +35,8 @@ export default function PokeFinder() {
                 />
                 {
                     loading ? <ActivityIndicator size="large" /> :
-                        <PokeList pokemon={pokemon} />
+                        <PokeDisplay pokemon={pokemon} />
                 }
             </View>
         )
     }
-
-const styles = StyleSheet.create({
-    inputForm: {
-        flex: 1,
-    },
-})
