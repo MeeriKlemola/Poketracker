@@ -1,12 +1,10 @@
 import React from 'react';
-import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity } from "react-native"
-import { getEvolutions } from "../apiGetEvolutions";
-import EvolutionList from "./EvolutionsList";
+import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Button } from "react-native"
 import GameList from "./GameList";
 import { Audio } from 'expo-av';
 import { Pokemon } from '../types/types';
 
-export default function PokeList({ pokemon }) {
+export default function PokeDisplay({ pokemon }) {
 
     return (
         <FlatList
@@ -37,38 +35,44 @@ export default function PokeList({ pokemon }) {
 
                 return (
                     <View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row'}}> 
                             <View style={styles.padding}>
                                 <Text style={styles.titleText}>
                                     {item.forms
-                                        .map((form: { name: string }) => form.name.charAt(0).toUpperCase() + form.name.slice(1).toLowerCase())
-                                        .join(', ')}
+                                        .map((form: { name: string }) => form.name.charAt(0).toUpperCase()
+                                            + form.name.slice(1).toLowerCase())
+                                        .join('\n')}
                                 </Text>
-                                <Text>
+                                <Text style={styles.text}>
                                     Type: {item.types.map(t => t.type.name).join(' / ')}
                                 </Text>
-                                <Text>Height: {item.height}</Text>
-                                <Text>Weight: {item.weight}</Text>
+                                <Text style={styles.text}>Height: {item.height}</Text>
+                                <Text style={styles.text}>Weight: {item.weight}</Text>
                             </View>
 
-                            <View style={{ width: '60%' }}>
+                            <View style={{ width: '55%', alignItems: 'center', justifyContent: 'center' }}>
                                 <TouchableOpacity onPress={playCrySound}>
                                     {item.sprites?.front_default ? (
                                         <Image
                                             style={styles.image}
                                             source={{ uri: item.sprites.front_default }}
-                                            onError={() => console.log("Image failed to load")}
+                                            resizeMode="contain"
                                         />
                                     ) : (
-                                        <Text style={{ color: "red", fontSize: 16 }}>No Image Available</Text>
+                                        <Text style={{ color: "red", fontSize: 15 }}>
+                                            Picture of pokemon not found {'\u003A\u0028'}
+                                        </Text>
                                     )}
                                 </TouchableOpacity>
                             </View>
-
                         </View>
 
-                        <Text style={styles.padding}>Where to catch:</Text>
+                        <Text style={{ paddingLeft: 5, fontSize: 15 }}>Where to catch:</Text>
                         <GameList gameIndices={item.game_indices} />
+
+                        <Button
+                            title='Add this pokémon to a list'
+                        />
                     </View>
                 );
             }}
@@ -80,7 +84,6 @@ const styles = StyleSheet.create({
     image: {
         width: 200,
         height: 200,
-        resizeMode: "contain",
     },
     titleText: {
         fontSize: 20,
@@ -89,7 +92,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     padding: {
-        paddingLeft: 10,
-        width: '40%',
-    }
+        paddingLeft: 5,
+    },
+    text: {
+        fontSize: 15
+    },
 })
