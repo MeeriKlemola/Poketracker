@@ -3,8 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign, Feather} from '@expo/vector-icons';
 import HomeScreen from "./screens/HomeScreen";
-import MyLists from "./screens/MyLists";
-import Settings from "./screens/Settings";
+import MyListsScreen from "./screens/MyListsScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,8 +31,8 @@ export default function App() {
         })}>
 
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="My Lists" component={MyLists} />
-        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen name="My Lists" component={MyListsScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
 
       </Tab.Navigator>
     </NavigationContainer >
