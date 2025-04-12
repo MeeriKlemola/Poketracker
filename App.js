@@ -1,18 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Feather} from '@expo/vector-icons';
 import HomeScreen from "./screens/HomeScreen";
 import MyLists from "./screens/MyLists";
+import { Settings } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
 
   return (
-
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -20,19 +18,24 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
 
             if (route.name === 'Home') {
-              return <Ionicons name='home' size={size} color={color} />;
+              return <AntDesign name='home' size={size} color={color} />;
 
             } else if (route.name === 'My Lists') {
               return <AntDesign name="book" size={size} color={color} />;
+
+            } else if (route.name === 'Settings') {
+              return <Feather name="settings" size={size} color={color} />;
             }
 
           },
         })}>
+
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="My Lists" component={MyLists} />
+        <Tab.Screen name="Settings" component={Settings} />
 
       </Tab.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
 
   );
 }
