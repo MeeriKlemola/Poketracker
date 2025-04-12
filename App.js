@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign, Feather} from '@expo/vector-icons';
 import HomeScreen from "./screens/HomeScreen";
 import MyLists from "./screens/MyLists";
-import { Settings } from 'react-native';
+import Settings from "./screens/Settings";
 
 const Tab = createBottomTabNavigator();
 
