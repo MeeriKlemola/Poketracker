@@ -3,6 +3,7 @@ import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Button } fro
 import GameList from "./GameList";
 import { Audio } from 'expo-av';
 import { Pokemon } from '../types/types';
+import { addToList } from './AddToList';
 
 export default function PokeDisplay({ pokemon }) {
 
@@ -35,7 +36,7 @@ export default function PokeDisplay({ pokemon }) {
 
                 return (
                     <View>
-                        <View style={{ flexDirection: 'row'}}> 
+                        <View style={{ flexDirection: 'row' }}>
                             <View style={styles.padding}>
                                 <Text style={styles.titleText}>
                                     {item.forms
@@ -72,8 +73,9 @@ export default function PokeDisplay({ pokemon }) {
 
                         <Button
                             title='Add this pokémon to a list'
-                        />
-                    </View>
+                            onPress={() => addToList("Favorites", myPokemon)}
+                        /> 
+                    </View> //testi, asettaa nyt favorites listaan, ei voi valita
                 );
             }}
         />
