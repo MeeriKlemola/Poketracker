@@ -1,11 +1,10 @@
 import React from 'react';
 import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Button } from "react-native"
 import GameList from "./GameList";
-import { Audio } from 'expo-av';
+import { playCrySoundById } from '../utils/audio';
 import { Pokemon } from '../types/types';
-import { addToList } from './AddToList';
 
-export default function PokeDisplay({ pokemon }) {
+export default function PokeDisplay({ pokemon, addToList }) {
 
     return (
         <FlatList
@@ -13,25 +12,16 @@ export default function PokeDisplay({ pokemon }) {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => {
 
-                const playCrySound = async () => {
-                    try {
-                        const { sound } = await Audio.Sound.createAsync({
-                            uri: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${item.id}.ogg`,
-                        });
-                        await sound.setVolumeAsync(0.2);
-                        await sound.playAsync();
-
-                    } catch (error) {
-                        console.error(`Failed to play cry for ${item.forms[0].name}:`, error);
-                    }
-                };
-
                 const myPokemon: Pokemon = {
                     id: item.id,
                     name: item.forms[0].name,
                     sprite: item.sprites.front_default,
                     types: item.types.map(t => t.type.name),
                     cryUrl: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${item.id}.ogg`,
+                };
+
+                const handleAdd = () => {
+                    addToList(myPokemon);
                 };
 
                 return (
@@ -52,7 +42,7 @@ export default function PokeDisplay({ pokemon }) {
                             </View>
 
                             <View style={{ width: '55%', alignItems: 'center', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={playCrySound}>
+                            <TouchableOpacity onPress={() => playCrySoundById(item.id)}>
                                     {item.sprites?.front_default ? (
                                         <Image
                                             style={styles.image}
@@ -73,9 +63,9 @@ export default function PokeDisplay({ pokemon }) {
 
                         <Button
                             title='Add this pokémon to a list'
-                            onPress={() => addToList("Favorites", myPokemon)}
-                        /> 
-                    </View> //testi, asettaa nyt favorites listaan, ei voi valita
+                            onPress={handleAdd}
+                        />
+                    </View>
                 );
             }}
         />
