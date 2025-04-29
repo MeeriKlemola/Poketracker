@@ -4,43 +4,17 @@ import { StyleSheet, Text, View, Button, Modal, TextInput } from 'react-native';
 import ListofLists from '../components/ListofLists'
 
 export default function App() {
-  const [favorites, setFavorites] = useState([]);
-  const [caught, setCaught] = useState([]);
+
   const [newListName, setNewListName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  //  const [lists, setLists] = useState({});
 
-  const lists = {
-    Favorites: favorites,
-    Caught: caught,
-  };
-  
   const listNames = Object.keys(lists);
-
-  // const addList = (name) => {
-  //   if (name) {
-  //    setModalVisible(false);
-  //   setNewListName('');
-  //  setLists(prev => ({
-  //    ...prev, [name]: [],
-  //   }));
-  //  }
-  // }; //ratkaise tämä
-
-
-  // const addToFavorites = (pokemon) => {
-  //   setFavorites((prev) => [...prev, pokemon]);
-  // };
-
-  // const addToCaught = (pokemon) => {
-  //  setCaught((prev) => [...prev, pokemon]);
-  // };
 
   return (
     <View style={styles.container}>
       <Text>Here are your current lists! </Text>
 
-      <ListofLists listNames={listNames} />
+      <ListofLists listNames={listNames} lists={lists} />
 
       <Button
         title="Add a new list"
