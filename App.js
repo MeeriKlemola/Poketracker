@@ -15,7 +15,7 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ color, size }) => {
 
             if (route.name === 'Home') {
               return <AntDesign name='home' size={size} color={color} />;
