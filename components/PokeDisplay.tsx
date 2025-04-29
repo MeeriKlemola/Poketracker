@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Button } from "react-native"
-import GameList from "./GameList";
+import GameList from "../utils/GameList";
 import { playCrySoundById } from '../utils/audio';
 import { Pokemon } from '../types/types';
 
@@ -50,7 +50,7 @@ export default function PokeDisplay({ pokemon, addToList }) {
                                             resizeMode="contain"
                                         />
                                     ) : (
-                                        <Text style={{ color: "red", fontSize: 15 }}>
+                                        <Text style={{ fontSize: 15 }}>
                                             Picture of pokemon not found {'\u003A\u0028'}
                                         </Text>
                                     )}
