@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import PokeFinder from '../components/PokeFinder';
 
-export default function App() {
+export default function HomeScreen({ lists, setLists }) {
   return (
     <View style={styles.container}>
-      <PokeFinder />
+      <PokeFinder lists={lists} setLists={setLists}/>
       <StatusBar style="auto" />
     </View>
   );
