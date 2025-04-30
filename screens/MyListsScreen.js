@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Button, Modal, TextInput } from 'react-native';
 import ListofLists from '../components/ListofLists'
 
-export default function App() {
+export default function MyListsScreen({ lists, setLists }) {
 
   const [newListName, setNewListName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
