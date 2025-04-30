@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { View, TextInput, Alert, ActivityIndicator, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import PokeDisplay from './PokeDisplay.tsx';
 import { getPokemon } from '../apiGetPokemon.js';
 import { useEffect } from 'react';
 
-export default function PokeFinder({lists, setLists}) {
+export default function PokeFinder({ lists, setLists }) {
 
     const [keyword, setKeyword] = useState("");
     const [pokemon, setPokemon] = useState([]);
@@ -43,20 +43,32 @@ export default function PokeFinder({lists, setLists}) {
                 onChangeText={text => setKeyword(text)}
             />
 
-            <Button
-                title='Search'
-                onPress={handleFetch}
-            />
+            <TouchableOpacity style={styles.button} onPress={handleFetch}>
+                <Text style={styles.buttonText}>Search</Text>
+            </TouchableOpacity>
             {
                 loading ? <ActivityIndicator size="large" /> :
-                    <PokeDisplay pokemon={pokemon} addToList={(listName, pokemon) => {
-                        setLists(prev => ({
-                            ...prev,
-                            [listName]: [...prev[listName], pokemon]
-                        }));
-                    }}
-                        lists={lists} />
+                    <PokeDisplay
+                        pokemon={pokemon}
+                        addToList={(listName, pokemon) => addToList(listName, pokemon, setLists)}
+                        lists={lists}
+                    />
             }
         </View>
     )
 }
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: '#3498db',
+        padding: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 10,
+    },
+
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    }
+})
