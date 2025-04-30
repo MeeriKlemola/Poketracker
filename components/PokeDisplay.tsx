@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Button } from "react-native"
+import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity } from "react-native"
 import GameList from "../utils/GameList";
 import { playCrySoundById } from '../utils/audio';
 import { Pokemon } from '../types/types';
 
-export default function PokeDisplay({ pokemon, addToList }) {
+
+export default function PokeDisplay({ pokemon, addToList, lists }) {
 
     return (
         <FlatList
@@ -12,16 +13,20 @@ export default function PokeDisplay({ pokemon, addToList }) {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => {
 
-                const myPokemon: Pokemon = {
-                    id: item.id,
-                    name: item.forms[0].name,
-                    sprite: item.sprites.front_default,
-                    types: item.types.map(t => t.type.name),
-                    cryUrl: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${item.id}.ogg`,
-                };
 
-                const handleAdd = () => {
-                    addToList(myPokemon);
+                const handleAdd = (item: any) => {
+
+                    const myPokemon: Pokemon = {
+                        id: item.id,
+                        name: item.forms[0].name,
+                        sprite: item.sprites.front_default,
+                        types: item.types.map(t => t.type.name),
+                        cryUrl: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${item.id}.ogg`,
+                    };
+
+                    addToList("Favorites", myPokemon);
+                    console.log("Pokemon lisätty:", myPokemon.name);
+                    console.log(" ");
                 };
 
                 return (
@@ -42,7 +47,7 @@ export default function PokeDisplay({ pokemon, addToList }) {
                             </View>
 
                             <View style={{ width: '55%', alignItems: 'center', justifyContent: 'center' }}>
-                            <TouchableOpacity onPress={() => playCrySoundById(item.id)}>
+                                <TouchableOpacity onPress={() => playCrySoundById(item.id)}>
                                     {item.sprites?.front_default ? (
                                         <Image
                                             style={styles.image}
@@ -61,10 +66,9 @@ export default function PokeDisplay({ pokemon, addToList }) {
                         <Text style={{ paddingLeft: 5, fontSize: 15 }}>Where to catch:</Text>
                         <GameList gameIndices={item.game_indices} />
 
-                        <Button
-                            title='Add this pokémon to a list'
-                            onPress={handleAdd}
-                        />
+                        <TouchableOpacity onPress={() => handleAdd(item)}>
+                            <Text>Add this Pokémon to a list</Text>
+                        </TouchableOpacity>
                     </View>
                 );
             }}
