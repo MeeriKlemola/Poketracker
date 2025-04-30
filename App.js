@@ -6,6 +6,7 @@ import HomeScreen from "./screens/HomeScreen";
 import MyListsScreen from "./screens/MyListsScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { useState } from 'react';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,37 +18,40 @@ export default function App() {
   });
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => {
+    <PaperProvider>
 
-            if (route.name === 'Home') {
-              return <AntDesign name='home' size={size} color={color} />;
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => {
 
-            } else if (route.name === 'My Lists') {
-              return <AntDesign name="book" size={size} color={color} />;
+              if (route.name === 'Home') {
+                return <AntDesign name='home' size={size} color={color} />;
 
-            } else if (route.name === 'Settings') {
-              return <Feather name="settings" size={size} color={color} />;
-            }
+              } else if (route.name === 'My Lists') {
+                return <AntDesign name="book" size={size} color={color} />;
 
-          },
-        })}>
+              } else if (route.name === 'Settings') {
+                return <Feather name="settings" size={size} color={color} />;
+              }
 
-        <Tab.Screen name="Home">
-          {() => <HomeScreen lists={lists} setLists={setLists} />}
-        </Tab.Screen>
+            },
+          })}>
 
-        <Tab.Screen name="My Lists">
-          {() => <MyListsScreen lists={lists} setLists={setLists} />}
-        </Tab.Screen>
-        
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Home">
+            {() => <HomeScreen lists={lists} setLists={setLists} />}
+          </Tab.Screen>
 
-      </Tab.Navigator>
-    </NavigationContainer >
+          <Tab.Screen name="My Lists">
+            {() => <MyListsScreen lists={lists} setLists={setLists} />}
+          </Tab.Screen>
+
+          <Tab.Screen name="Settings" component={SettingsScreen} />
+
+        </Tab.Navigator>
+      </NavigationContainer >
+    </PaperProvider>
 
   );
 }
