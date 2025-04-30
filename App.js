@@ -1,14 +1,20 @@
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AntDesign, Feather} from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import HomeScreen from "./screens/HomeScreen";
 import MyListsScreen from "./screens/MyListsScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import { useState } from 'react';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
+  const [lists, setLists] = useState({
+    Favorites: [],
+    Caught: [],
+  });
 
   return (
     <NavigationContainer>
@@ -30,8 +36,14 @@ export default function App() {
           },
         })}>
 
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="My Lists" component={MyListsScreen} />
+        <Tab.Screen name="Home">
+          {() => <HomeScreen lists={lists} setLists={setLists} />}
+        </Tab.Screen>
+
+        <Tab.Screen name="My Lists">
+          {() => <MyListsScreen lists={lists} setLists={setLists} />}
+        </Tab.Screen>
+        
         <Tab.Screen name="Settings" component={SettingsScreen} />
 
       </Tab.Navigator>
