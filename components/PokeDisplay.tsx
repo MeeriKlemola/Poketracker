@@ -3,9 +3,12 @@ import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity } from "react
 import GameList from "../utils/GameList";
 import { playCrySoundById } from '../utils/audio';
 import { Pokemon } from '../types/types';
+import { Snackbar } from 'react-native-paper';
+import { useState } from 'react';
 
 
 export default function PokeDisplay({ pokemon, addToList, lists }) {
+    const [visible, setVisible] = useState(false);
 
     return (
         <FlatList
@@ -27,6 +30,7 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                     addToList("Favorites", myPokemon);
                     console.log("Pokemon lisätty:", myPokemon.name);
                     console.log(" ");
+                    setVisible(true);
                 };
 
                 return (
@@ -66,9 +70,16 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                         <Text style={{ paddingLeft: 5, fontSize: 15 }}>Where to catch:</Text>
                         <GameList gameIndices={item.game_indices} />
 
-                        <TouchableOpacity onPress={() => handleAdd(item)}>
-                            <Text>Add this Pokémon to a list</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => handleAdd(item)}>
+                            <Text style={styles.buttonText}>Add this Pokémon to a list</Text>
                         </TouchableOpacity>
+
+                        <Snackbar
+                            visible={visible}
+                            duration={2000}
+                            onDismiss={() => setVisible(false)}>
+                            Pokémon added successfully to the list! :)
+                        </Snackbar>
                     </View>
                 );
             }}
@@ -93,4 +104,17 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 15
     },
+    button: {
+        backgroundColor: '#3498db',
+        padding: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 10,
+    },
+
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    }
 })
