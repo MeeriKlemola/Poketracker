@@ -2,19 +2,25 @@ import { useState } from 'react';
 import { View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 import PokeDisplay from './PokeDisplay.tsx';
 import { getPokemon } from '../apiGetPokemon.js';
+import { useEffect } from 'react';
 
 export default function PokeFinder() {
 
     const [keyword, setKeyword] = useState("");
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(false);
-    
+
     const [lists, setLists] = useState({
         Favorites: [],
         Caught: [],
     });
 
-    const addToList = (listName, pokemon) => {
+    useEffect(() => {
+        console.log("Listojen tila päivittyi:", lists);
+        console.log(" ");
+    }, [lists]);
+
+    const addToList = (listName, pokemon, setLists) => {
         setLists(prev => ({
             ...prev,
             [listName]: [...prev[listName], pokemon]
@@ -48,7 +54,13 @@ export default function PokeFinder() {
             />
             {
                 loading ? <ActivityIndicator size="large" /> :
-                    <PokeDisplay pokemon={pokemon} addToList={addToList} />
+                    <PokeDisplay pokemon={pokemon} addToList={(listName, pokemon) => {
+                        setLists(prev => ({
+                            ...prev,
+                            [listName]: [...prev[listName], pokemon]
+                        }));
+                    }}
+                        lists={lists} />
             }
         </View>
     )
