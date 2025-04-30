@@ -1,23 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform, StatusBar, SafeAreaView } from 'react-native';
 import PokeFinder from '../components/PokeFinder';
 
 export default function HomeScreen({ lists, setLists }) {
   return (
-    <View style={styles.container}>
-      <PokeFinder lists={lists} setLists={setLists}/>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <PokeFinder lists={lists} setLists={setLists} />
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
-    marginTop: 45,
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
+    backgroundColor: '#fff',
   },
 });
