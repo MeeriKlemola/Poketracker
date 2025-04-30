@@ -4,16 +4,11 @@ import PokeDisplay from './PokeDisplay.tsx';
 import { getPokemon } from '../apiGetPokemon.js';
 import { useEffect } from 'react';
 
-export default function PokeFinder() {
+export default function PokeFinder({lists, setLists}) {
 
     const [keyword, setKeyword] = useState("");
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    const [lists, setLists] = useState({
-        Favorites: [],
-        Caught: [],
-    });
 
     useEffect(() => {
         console.log("Listojen tila päivittyi:", lists);
