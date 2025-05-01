@@ -3,19 +3,14 @@ import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity } from "react
 import GameList from "../utils/GameList";
 import { playCrySoundById } from '../utils/audio';
 import { Pokemon } from '../types/types';
-import { Snackbar } from 'react-native-paper';
-import { useState } from 'react';
-
 
 export default function PokeDisplay({ pokemon, addToList, lists }) {
-    const [visible, setVisible] = useState(false);
 
     return (
         <FlatList
             data={pokemon}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => {
-
 
                 const handleAdd = (item: any) => {
 
@@ -30,7 +25,7 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                     addToList("Favorites", myPokemon);
                     console.log("Pokemon lisätty:", myPokemon.name);
                     console.log(" ");
-                    setVisible(true);
+
                 };
 
                 return (
@@ -73,13 +68,6 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                         <TouchableOpacity style={styles.button} onPress={() => handleAdd(item)}>
                             <Text style={styles.buttonText}>Add this Pokémon to a list</Text>
                         </TouchableOpacity>
-
-                        <Snackbar
-                            visible={visible}
-                            duration={2000}
-                            onDismiss={() => setVisible(false)}>
-                            Pokémon added successfully to the list! :)
-                        </Snackbar>
                     </View>
                 );
             }}
