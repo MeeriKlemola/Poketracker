@@ -1,14 +1,15 @@
-import { StyleSheet, View, Platform, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, View, StatusBar, SafeAreaView } from 'react-native';
 import PokeFinder from '../components/PokeFinder';
 
 export default function HomeScreen({ lists, setLists }) {
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <PokeFinder lists={lists} setLists={setLists} />
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      </View>
-    </SafeAreaView>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <PokeFinder lists={lists} setLists={setLists} />
+          <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        </View>
+      </SafeAreaView>
   );
 }
 
@@ -24,5 +25,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     backgroundColor: '#fff',
+    marginTop: 45
   },
 });
