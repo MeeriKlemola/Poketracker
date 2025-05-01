@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Switch } from 'react-native';
 
-export default function App () {
+export default function SettingsScreen() {
 
     return (
         <View style={styles.container}>
-        <Text>Here are your settings.</Text>
-        <StatusBar style="auto" />
+            <Text>Darkmode</Text>
+            <Switch
+            />
+            <StatusBar style="auto" />
         </View>
     )
 }
@@ -18,4 +20,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-  });
+});
