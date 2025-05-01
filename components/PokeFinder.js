@@ -1,14 +1,16 @@
-import { useState } from 'react';
-import { View, TextInput, Alert, ActivityIndicator, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, TextInput, Alert, ActivityIndicator, StyleSheet, TouchableOpacity, Text, Keyboard } from 'react-native';
 import PokeDisplay from './PokeDisplay.tsx';
 import { getPokemon } from '../apiGetPokemon.js';
-import { useEffect } from 'react';
+import { Snackbar } from 'react-native-paper';
 
 export default function PokeFinder({ lists, setLists }) {
 
     const [keyword, setKeyword] = useState("");
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     useEffect(() => {
         console.log("Listojen tila päivittyi:", lists);
@@ -16,10 +18,22 @@ export default function PokeFinder({ lists, setLists }) {
     }, [lists]);
 
     const addToList = (listName, pokemon, setLists) => {
-        setLists(prev => ({
-            ...prev,
-            [listName]: [...prev[listName], pokemon]
-        }));
+        setLists(prev => {
+            const alreadyExists = prev[listName].some(p => p.name === pokemon.name);
+
+            if (alreadyExists) {
+                setSnackbarMessage('Pokémon is already on the list!');
+                setVisible(true);
+                return prev;
+            }
+
+            setSnackbarMessage('Pokémon added successfully to the list! :)');
+            setVisible(true);
+            return {
+                ...prev,
+                [listName]: [...prev[listName], pokemon]
+            };
+        });
     };
 
     const handleFetch = () => {
@@ -43,7 +57,11 @@ export default function PokeFinder({ lists, setLists }) {
                 onChangeText={text => setKeyword(text)}
             />
 
-            <TouchableOpacity style={styles.button} onPress={handleFetch}>
+            <TouchableOpacity style={styles.button}
+                onPress={() => {
+                    Keyboard.dismiss();
+                    handleFetch();
+                }}>
                 <Text style={styles.buttonText}>Search</Text>
             </TouchableOpacity>
             {
@@ -54,6 +72,12 @@ export default function PokeFinder({ lists, setLists }) {
                         lists={lists}
                     />
             }
+            <Snackbar
+                visible={visible}
+                duration={2000}
+                onDismiss={() => setVisible(false)}>
+                {snackbarMessage}
+            </Snackbar>
         </View>
     )
 }
