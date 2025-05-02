@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, Modal, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, Modal, TextInput, TouchableOpacity } from 'react-native';
 import ListofLists from '../components/ListofLists'
 
 export default function MyListsScreen({ lists, setLists }) {
@@ -12,18 +12,15 @@ export default function MyListsScreen({ lists, setLists }) {
 
   return (
     <View style={styles.container}>
-      <Text>Here are your current lists! </Text>
-
       <ListofLists listNames={listNames} lists={lists} />
 
-      <Button
-        title="Add a new list"
-        onPress={() => setModalVisible(true)}
-      />
+      <TouchableOpacity style={styles.button}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.buttonText}>Add a New List</Text>
+      </TouchableOpacity>
 
       <Modal
         animationType="slide"
-
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
@@ -59,32 +56,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
   modalView: {
     flex: 1,
+    backgroundColor: 'white',
+    padding: 20,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalText: {
-    color: 'white',
-    marginBottom: 10,
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
-    width: '80%',
-    paddingLeft: 10,
     backgroundColor: 'white',
   },
   modalButtons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '80%',
+    marginTop: 30,
+  },
+  button: {
+    backgroundColor: '#3498db',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
