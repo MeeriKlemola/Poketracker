@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native"
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native"
 
 export default function ListofLists({ lists }) {
 
@@ -6,15 +6,17 @@ export default function ListofLists({ lists }) {
     <ScrollView contentContainerStyle={styles.container}>
 
       {Object.entries(lists).map(([listName, pokemons]) => (
-        
-        <View key={listName} style={styles.listContainer}>
 
-          <Text style={styles.listTitle}>{listName}</Text>
-          <Text style={styles.countText}>
-            {pokemons.length} Pokémon{pokemons.length !== 1 }
-          </Text>
+        <TouchableOpacity key={listName} onPress={() => console.log(`Pressed ${listName}`)}>
+          <View key={listName} style={styles.listContainer}>
 
-        </View>
+            <Text style={styles.listTitle}>{listName}</Text>
+            <Text style={styles.countText}>
+              {pokemons.length} Pokémon{pokemons.length !== 1}
+            </Text>
+
+          </View>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   )
@@ -23,7 +25,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     marginTop: 45,
-    alignItems:'center',
   },
   listContainer: {
     backgroundColor: '#f0f4f7',
