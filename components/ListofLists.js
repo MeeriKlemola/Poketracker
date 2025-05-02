@@ -1,13 +1,16 @@
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native"
+import { useNavigation } from '@react-navigation/native';
 
 export default function ListofLists({ lists }) {
+  const navigation = useNavigation();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
       {Object.entries(lists).map(([listName, pokemons]) => (
 
-        <TouchableOpacity key={listName} onPress={() => console.log(`Pressed ${listName}`)}>
+        <TouchableOpacity key={listName} onPress={() =>
+          navigation.navigate("SingularList", { listName, pokemons }) }>
           <View key={listName} style={styles.listContainer}>
 
             <Text style={styles.listTitle}>{listName}</Text>
