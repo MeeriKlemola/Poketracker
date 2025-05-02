@@ -5,6 +5,7 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import HomeScreen from "./screens/HomeScreen";
 import MyListsScreen from "./screens/MyListsScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import SingularListScreen from './screens/SingularListScreen';
 import { useState } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -17,6 +18,7 @@ export default function App() {
     Caught: [],
   });
 
+  //Navigaatiossa yksi bs route tasapainoisen lookin vuoksi
   return (
     <PaperProvider>
 
@@ -34,6 +36,9 @@ export default function App() {
 
               } else if (route.name === 'Settings') {
                 return <Feather name="settings" size={size} color={color} />;
+
+              } else if (route.name === 'SingularList') {
+                return <AntDesign name='home' size={1} color={'red'} />;
               }
 
             },
@@ -43,11 +48,26 @@ export default function App() {
             {() => <HomeScreen lists={lists} setLists={setLists} />}
           </Tab.Screen>
 
+          <Tab.Screen name="Homes" options={{
+            tabBarButton: () => <></>,
+          }}>
+            {() => <HomeScreen lists={lists} setLists={setLists} />}
+          </Tab.Screen>
+
           <Tab.Screen name="My Lists">
             {() => <MyListsScreen lists={lists} setLists={setLists} />}
           </Tab.Screen>
 
+          <Tab.Screen
+            name="SingularList"
+            component={SingularListScreen}
+            options={{
+              tabBarButton: () => <></>,
+            }}
+          />
+
           <Tab.Screen name="Settings" component={SettingsScreen} />
+
 
         </Tab.Navigator>
       </NavigationContainer >
