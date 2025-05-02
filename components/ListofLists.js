@@ -11,7 +11,7 @@ export default function ListofLists({ lists }) {
 
         <TouchableOpacity key={listName} onPress={() =>
           navigation.navigate("SingularList", { listName, pokemons }) }>
-          <View key={listName} style={styles.listContainer}>
+          <View style={styles.listContainer}>
 
             <Text style={styles.listTitle}>{listName}</Text>
             <Text style={styles.countText}>
@@ -27,7 +27,7 @@ export default function ListofLists({ lists }) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    marginTop: 45,
+    marginTop: 30,
   },
   listContainer: {
     backgroundColor: '#f0f4f7',
