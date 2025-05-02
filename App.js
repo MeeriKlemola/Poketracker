@@ -1,81 +1,72 @@
+import { useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign, Feather } from '@expo/vector-icons';
+
 import HomeScreen from "./screens/HomeScreen";
 import MyListsScreen from "./screens/MyListsScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import SingularListScreen from './screens/SingularListScreen';
-import { useState } from 'react';
-import { Provider as PaperProvider } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function TabScreens({ lists, setLists }) {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => {
+          if (route.name === 'Home') {
+            return <AntDesign name='home' size={size} color={color} />;
+          } else if (route.name === 'My Lists') {
+            return <AntDesign name="book" size={size} color={color} />;
+          } else if (route.name === 'Settings') {
+            return <Feather name="settings" size={size} color={color} />;
+          }
+        },
+      })}
+    >
+      <Tab.Screen name="Home">
+        {() => <HomeScreen lists={lists} setLists={setLists} />}
+      </Tab.Screen>
+      <Tab.Screen name="My Lists">
+        {() => <MyListsScreen lists={lists} setLists={setLists} />}
+      </Tab.Screen>
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
-
   const [lists, setLists] = useState({
     Favorites: [],
     Caught: [],
   });
 
-  //Navigaatiossa yksi bs route tasapainoisen lookin vuoksi
   return (
     <PaperProvider>
-
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => {
-
-              if (route.name === 'Home') {
-                return <AntDesign name='home' size={size} color={color} />;
-
-              } else if (route.name === 'My Lists') {
-                return <AntDesign name="book" size={size} color={color} />;
-
-              } else if (route.name === 'Settings') {
-                return <Feather name="settings" size={size} color={color} />;
-
-              } else if (route.name === 'SingularList') {
-                return <AntDesign name='home' size={1} color={'red'} />;
-              }
-
-            },
-          })}>
-
-          <Tab.Screen name="Home">
-            {() => <HomeScreen lists={lists} setLists={setLists} />}
-          </Tab.Screen>
-
-          <Tab.Screen name="Homes" options={{
-            tabBarButton: () => <></>,
-          }}>
-            {() => <HomeScreen lists={lists} setLists={setLists} />}
-          </Tab.Screen>
-
-          <Tab.Screen name="My Lists">
-            {() => <MyListsScreen lists={lists} setLists={setLists} />}
-          </Tab.Screen>
-
-          <Tab.Screen
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Tabs"
+            options={{ headerShown: false }}
+          >
+            {() => <TabScreens lists={lists} setLists={setLists} />}
+          </Stack.Screen>
+          <Stack.Screen
             name="SingularList"
             component={SingularListScreen}
-            options={{
-              tabBarButton: () => <></>,
-            }}
+            options={{ title: 'List' }}
           />
-
-          <Tab.Screen name="Settings" component={SettingsScreen} />
-
-
-        </Tab.Navigator>
-      </NavigationContainer >
+        </Stack.Navigator>
+      </NavigationContainer>
     </PaperProvider>
-
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     marginTop: 40,
