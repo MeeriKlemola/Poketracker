@@ -50,8 +50,9 @@ export default function PokeFinder({ lists, setLists }) {
     }
 
     return (
-        <View>
+        <View style={{ flex: 1, alignItems: 'center'  }}>
             <TextInput
+                style={{alignItems: 'left', width: '100%'}}
                 placeholder='Enter a pokemon'
                 value={keyword}
                 onChangeText={text => setKeyword(text)}
@@ -88,6 +89,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 10,
+        width: '100%',
     },
 
     buttonText: {

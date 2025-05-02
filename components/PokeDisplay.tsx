@@ -31,7 +31,7 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                     <View>
 
                         <View style={{ flexDirection: 'row' }}>
-                            <View style={styles.padding}>
+                            <View style={{ paddingLeft: 5, justifyContent: 'center', width: '30%' }}>
                                 <Text style={styles.titleText}>
                                     {item.forms.map((form) =>
                                         form.name.charAt(0).toUpperCase() + form.name.slice(1).toLowerCase()
@@ -42,12 +42,12 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                                 <Text style={styles.text}>Weight: {item.weight}</Text>
                             </View>
 
-                            <View style={{ width: '55%', alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ width: '70%', alignItems: 'center', justifyContent: 'center' }}>
                                 <TouchableOpacity onPress={() => playCrySoundById(item.id)}>
                                     {item.sprites?.front_default ? (
                                         <Image style={styles.image} source={{ uri: item.sprites.front_default }} resizeMode="contain" />
                                     ) : (
-                                        <Text style={{ fontSize: 15 }}>Picture of pokemon not found :(</Text>
+                                        <Text style={{ fontSize: 15 }}>Picture of pokemon not found {'\u003A\u0028'}</Text>
                                     )}
                                 </TouchableOpacity>
                             </View>
@@ -101,14 +101,12 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 2,
+        marginBottom: 3,
         marginTop: 10,
     },
-    padding: {
-        paddingLeft: 5,
-    },
     text: {
-        fontSize: 15
+        fontSize: 15,
+        marginBottom: 2
     },
     button: {
         backgroundColor: '#3498db',
