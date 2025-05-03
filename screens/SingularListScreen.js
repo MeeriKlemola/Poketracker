@@ -1,11 +1,11 @@
 import React from 'react';
 import { FlatList, View, Text, Button, StyleSheet, Image } from "react-native";
 
-export default function SingularListScreen({ route, navigation }) {
-    const { listName, pokemons } = route.params;
+export default function SingularListScreen({ route, removePokemon, lists }) {
+    const { listName } = route.params;
+    const pokemons = lists[listName];
 
     const renderItem = ({ item }) => {
-        console.log('TYPES:', item.types);
         console.log('KOKO ITEM:', JSON.stringify(item));
 
         return (
@@ -15,7 +15,7 @@ export default function SingularListScreen({ route, navigation }) {
                     alignItems: 'flex-start',
                     flexShrink: 2
                 }}>
-                    <Text style={{fontWeight: 'bold', fontSize: 17}}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 17 }}>
                         {item.name.charAt(0).toUpperCase() + item.name.slice(1).toLowerCase()}
                     </Text>
 
@@ -37,9 +37,8 @@ export default function SingularListScreen({ route, navigation }) {
                     borderRadius: 8, alignItems: 'center', flex: 1, justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <Button title="x" color="red"></Button>
+                    <Button title="x" color="red" onPress={() => removePokemon(listName, item.name)}></Button>
                 </View>
-
             </View>
         );
     };
