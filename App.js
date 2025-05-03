@@ -47,26 +47,44 @@ export default function App() {
     Caught: [],
   });
 
+  const removePokemon = (listName, nameToRemove) => {
+    setLists(prevLists => ({
+      ...prevLists,
+      [listName]: prevLists[listName].filter(p => p.name !== nameToRemove),
+    }));
+  };
+
   return (
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
+
           <Stack.Screen
             name="Tabs"
-            options={{ headerShown: false }}
-          >
-            {() => <TabScreens lists={lists} setLists={setLists} />}
+            options={{ headerShown: false }}>
+
+            {() => <TabScreens lists={lists} setLists={setLists} removePokemon={removePokemon} />}
           </Stack.Screen>
+
           <Stack.Screen
             name="SingularList"
-            component={SingularListScreen}
-            options={{ title: 'List' }}
-          />
+            options={{ title: 'List' }}>
+
+            {props => (
+              <SingularListScreen
+                {...props}
+                lists={lists}
+                removePokemon={removePokemon}
+              />
+            )}
+          </Stack.Screen>
+
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 40,
