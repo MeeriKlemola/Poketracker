@@ -38,8 +38,12 @@ export default function PokeDisplay({ pokemon, addToList, lists }) {
                                     ).join('\n')}
                                 </Text>
                                 <Text style={styles.text}>Type: {item.types.map(t => t.type.name).join(' / ')}</Text>
-                                <Text style={styles.text}>Height: {item.height}</Text>
-                                <Text style={styles.text}>Weight: {item.weight}</Text>
+                                <Text style={styles.text}>
+                                    Height: {(item.height / 10).toFixed(1)} m
+                                </Text>
+                                <Text style={styles.text}>
+                                    Weight: {(item.weight / 10).toFixed(1)} kg
+                                </Text>
                             </View>
 
                             <View style={{ width: '70%', alignItems: 'center', justifyContent: 'center' }}>
