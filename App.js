@@ -8,7 +8,6 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 
 import HomeScreen from "./screens/HomeScreen";
 import MyListsScreen from "./screens/MyListsScreen";
-import SettingsScreen from "./screens/SettingsScreen";
 import SingularListScreen from './screens/SingularListScreen';
 
 const Tab = createBottomTabNavigator();
@@ -24,8 +23,6 @@ function TabScreens({ lists, setLists, removeList }) {
             return <AntDesign name='home' size={size} color={color} />;
           } else if (route.name === 'My Lists') {
             return <AntDesign name="book" size={size} color={color} />;
-          } else if (route.name === 'Settings') {
-            return <Feather name="settings" size={size} color={color} />;
           }
         },
       })}
@@ -36,7 +33,6 @@ function TabScreens({ lists, setLists, removeList }) {
       <Tab.Screen name="My Lists">
         {() => <MyListsScreen lists={lists} setLists={setLists} removeList={removeList} />}
       </Tab.Screen>
-      <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }
