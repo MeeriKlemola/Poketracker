@@ -10,6 +10,19 @@ export default function MyListsScreen({ lists, setLists }) {
 
   const listNames = Object.keys(lists);
 
+  const addList = (name) => {
+    if (!name.trim()) return;
+
+    if (lists[name]) {
+      alert('List already exists!');
+      return;
+    }
+
+    setLists({ ...lists, [name]: [] });
+    setNewListName('');
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <ListofLists listNames={listNames} lists={lists} />
@@ -81,6 +94,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 30,
+    color: '#3498db',
+    borderRadius: 8
   },
   button: {
     backgroundColor: '#3498db',
