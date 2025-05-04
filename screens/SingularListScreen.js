@@ -52,8 +52,6 @@ export default function SingularListScreen({ route, removePokemon, lists }) {
                 keyExtractor={(item, index) => `${item.name}-${index}`}
                 renderItem={renderItem}
             />
-
-            <Button title="Add a Pokémon" onPress={() => { }} />
         </View>
     );
 }
