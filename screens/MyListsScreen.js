@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Button, Modal, TextInput, TouchableOpacity } from 'react-native';
 import ListofLists from '../components/ListofLists'
 
-export default function MyListsScreen({ lists, setLists }) {
+export default function MyListsScreen({ lists, setLists, removeList}) {
 
   const [newListName, setNewListName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,7 +25,7 @@ export default function MyListsScreen({ lists, setLists }) {
 
   return (
     <View style={styles.container}>
-      <ListofLists listNames={listNames} lists={lists} />
+      <ListofLists listNames={listNames} lists={lists} removeList={removeList} />
 
       <TouchableOpacity style={styles.button}
         onPress={() => setModalVisible(true)}>
