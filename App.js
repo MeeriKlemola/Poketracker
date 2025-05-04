@@ -4,7 +4,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import HomeScreen from "./screens/HomeScreen";
 import MyListsScreen from "./screens/MyListsScreen";
@@ -67,7 +67,7 @@ export default function App() {
             name="Tabs"
             options={{ headerShown: false }}>
 
-            {() => <TabScreens lists={lists} setLists={setLists} removePokemon={removePokemon} removeList={removeList}/>}
+            {() => <TabScreens lists={lists} setLists={setLists} removePokemon={removePokemon} removeList={removeList} />}
           </Stack.Screen>
 
           <Stack.Screen
