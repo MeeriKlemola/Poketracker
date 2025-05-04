@@ -1,8 +1,19 @@
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Button, Alert } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 
-export default function ListofLists({ lists }) {
+export default function ListofLists({ lists, removeList }) {
   const navigation = useNavigation();
+
+  const confirmDelete = (listName) => {
+    Alert.alert(
+      "Delete List",
+      `Are you sure you want to delete ${listName}?`,
+      [
+        { text: "Cancel" },
+        { text: "Delete" , onPress: () => removeList(listName) }
+      ]
+    );
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -10,13 +21,18 @@ export default function ListofLists({ lists }) {
       {Object.entries(lists).map(([listName, pokemons]) => (
 
         <TouchableOpacity key={listName} onPress={() =>
-          navigation.navigate("SingularList", { listName, pokemons }) }>
+          navigation.navigate("SingularList", { listName, pokemons })}>
+
           <View style={styles.listContainer}>
 
-            <Text style={styles.listTitle}>{listName}</Text>
-            <Text style={styles.countText}>
-              {pokemons.length} Pokémon{pokemons.length !== 1}
-            </Text>
+            <View>
+              <Text style={styles.listTitle}>{listName}</Text>
+              <Text style={styles.countText}>{pokemons.length} Pokémon</Text>
+            </View>
+
+            <View>
+              <Button title="x" color="red" onPress={() => confirmDelete(listName)}></Button>
+            </View>
 
           </View>
         </TouchableOpacity>
@@ -36,7 +52,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 2,
     width: '100%',
-    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   listTitle: {
     fontSize: 20,
