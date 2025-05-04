@@ -14,7 +14,7 @@ import SingularListScreen from './screens/SingularListScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function TabScreens({ lists, setLists }) {
+function TabScreens({ lists, setLists, removeList }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -34,7 +34,7 @@ function TabScreens({ lists, setLists }) {
         {() => <HomeScreen lists={lists} setLists={setLists} />}
       </Tab.Screen>
       <Tab.Screen name="My Lists">
-        {() => <MyListsScreen lists={lists} setLists={setLists} />}
+        {() => <MyListsScreen lists={lists} setLists={setLists} removeList={removeList} />}
       </Tab.Screen>
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
@@ -54,6 +54,14 @@ export default function App() {
     }));
   };
 
+  const removeList = (listName) => {
+    setLists(prevLists => {
+      const updatedLists = { ...prevLists };
+      delete updatedLists[listName];
+      return updatedLists;
+    });
+  };
+
   return (
     <PaperProvider>
       <NavigationContainer>
@@ -63,7 +71,7 @@ export default function App() {
             name="Tabs"
             options={{ headerShown: false }}>
 
-            {() => <TabScreens lists={lists} setLists={setLists} removePokemon={removePokemon} />}
+            {() => <TabScreens lists={lists} setLists={setLists} removePokemon={removePokemon} removeList={removeList}/>}
           </Stack.Screen>
 
           <Stack.Screen
